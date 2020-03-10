@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">마스크를 부탁해</string>
+    <string name="title_activity_maps">마스크를 부탁해</string>
+    <string name="msg_refresh">새로고침</string>
+</resources>

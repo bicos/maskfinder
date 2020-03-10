@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MapsActivity" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@drawable/bg_guide"
+        android:padding="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icon_full"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/ic_default"
+            android:tint="@color/green"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_full"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="100개 이상"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/icon_full"
+            app:layout_constraintLeft_toRightOf="@+id/icon_full"
+            app:layout_constraintTop_toTopOf="@+id/icon_full" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icon_plenty"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:tint="@color/yellow"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_default"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/icon_full" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_plenty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="30개 이상 100개미만"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/icon_plenty"
+            app:layout_constraintLeft_toRightOf="@+id/icon_plenty"
+            app:layout_constraintTop_toTopOf="@+id/icon_plenty" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icon_few"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="5dp"
+            android:tint="@color/red"
+            android:src="@drawable/ic_default"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/icon_plenty" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_few"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="2개 이상 30개 미만"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/icon_few"
+            app:layout_constraintLeft_toRightOf="@+id/icon_few"
+            app:layout_constraintTop_toTopOf="@+id/icon_few" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:tint="@color/gray"
+            android:id="@+id/icon_empty"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_default"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/icon_few" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="1개 이하"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/icon_empty"
+            app:layout_constraintLeft_toRightOf="@+id/icon_empty"
+            app:layout_constraintTop_toTopOf="@+id/icon_empty" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btn_search_store"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/bg_refresh"
+        android:drawableLeft="@drawable/ic_autorenew_black_24dp"
+        android:drawablePadding="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:shadowColor="@color/colorPrimaryDark"
+        android:shadowDy="5"
+        android:text="@string/msg_refresh"
+        android:textColor="@color/color_refresh_txt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
