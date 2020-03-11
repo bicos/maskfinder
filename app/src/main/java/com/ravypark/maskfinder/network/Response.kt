@@ -9,3 +9,11 @@ data class Response(
     @SerializedName("stores")
     val stores: List<Store>
 )
+
+data class StoresResponse(
+    val totalPages: Int,
+    val totalCount: Int,
+    val page: Int,
+    val count: Int,
+    val scoreInfos: List<Store>
+)

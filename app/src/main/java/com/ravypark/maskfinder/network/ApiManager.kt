@@ -42,13 +42,13 @@ interface ApiManager {
     suspend fun getStores(
         @Query("page") page: Int = 1,
         @Query("perPage") perPage: Int = 500
-    ): Response
+    ): StoresResponse
 
     @GET("sales/json")
     suspend fun getSales(
         @Query("page") page: Int = 1,
         @Query("perPage") perPage: Int = 500
-    ): Response
+    ): StoresResponse
 
     @GET("storesByGeo/json")
     suspend fun getStoresByGeo(

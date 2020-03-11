@@ -152,11 +152,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, EasyPermissions.Pe
     }
 
     private fun requestStoresByGeo(lat: Double, lng: Double) = lifecycleScope.launch {
-        val result = api.getStoresByGeo(lat, lng)
-        result.stores.map { StoreItem(it) }.run {
-            clusterManager.addItems(this)
+        runCatching {
+            val result = api.getStoresByGeo(lat, lng)
+            result.stores.map { StoreItem(it) }.run {
+                clusterManager.addItems(this)
+            }
+            clusterManager.cluster()
+        }.onFailure {
+            Toast.makeText(applicationContext, "데이터를 불러올 수 없습니다. 잠시 후에 시도해 주세요.", Toast.LENGTH_SHORT).show()
         }
-        clusterManager.cluster()
     }
 }
 

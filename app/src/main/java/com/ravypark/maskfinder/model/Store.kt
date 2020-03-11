@@ -23,7 +23,7 @@ data class Store(
     @SerializedName("remain_stat")
     val remainStat: Stat?,
     @SerializedName("created_at")
-    val createdAt: String
+    val createdAt: String?
 )
 
 enum class Stat {
