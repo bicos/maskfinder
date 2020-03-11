@@ -2,9 +2,6 @@ package com.ravypark.maskfinder.model
 
 import com.google.gson.annotations.SerializedName
 
-/**
- * description: "재고 상태[100개 이상(녹색): 'plenty' / 30개 이상 100개미만(노랑색): 'some' / 2개 이상 30개 미만(빨강색): 'few' / 1개 이하(회색): 'empty']"
- */
 data class Store(
     @SerializedName("code")
     val code: String,
@@ -26,6 +23,16 @@ data class Store(
     val createdAt: String?
 )
 
-enum class Stat {
-    plenty, some, few, empty
+enum class Stat(val msg: String) {
+    @SerializedName("plenty")
+    Plenty("충분"),
+
+    @SerializedName("some")
+    Some("보통"),
+
+    @SerializedName("few")
+    Few("부족"),
+
+    @SerializedName("empty")
+    Empty("없음")
 }

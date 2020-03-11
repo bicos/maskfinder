@@ -9,10 +9,12 @@ import android.graphics.Color
 import android.location.Location
 import android.net.Uri
 import android.os.Bundle
+import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.location.LocationAvailability
 import com.google.android.gms.location.LocationServices
@@ -30,6 +32,7 @@ import com.google.maps.android.clustering.view.DefaultClusterRenderer
 import com.ravypark.maskfinder.model.Constants.Companion.DEFAULT_LAT_LON
 import com.ravypark.maskfinder.model.Constants.Companion.DEFAULT_ZOOM
 import com.ravypark.maskfinder.model.Constants.Companion.REQ_GET_CURRENT_LOCATION
+import com.ravypark.maskfinder.model.Preference
 import com.ravypark.maskfinder.model.Stat
 import com.ravypark.maskfinder.model.StoreItem
 import com.ravypark.maskfinder.network.ApiManager
@@ -54,6 +57,30 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, EasyPermissions.Pe
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        if (!Preference.isShowNotice(applicationContext)) {
+            showNoticeDialog()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.menu_home, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_notice -> {
+                showNoticeDialog()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun showNoticeDialog() {
+        NoticeDialogFragment().show(supportFragmentManager, null)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -159,7 +186,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, EasyPermissions.Pe
             }
             clusterManager.cluster()
         }.onFailure {
-            Toast.makeText(applicationContext, "데이터를 불러올 수 없습니다. 잠시 후에 시도해 주세요.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                applicationContext,
+                "데이터를 불러올 수 없습니다. 잠시 후에 시도해 주세요.",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 }
@@ -177,7 +208,11 @@ class BikeStationRenderer(
             .position(item.position)
     }
 
-    private fun bitmapDescriptorFromVector(context: Context?, vectorId: Int, item: StoreItem): BitmapDescriptor? {
+    private fun bitmapDescriptorFromVector(
+        context: Context?,
+        vectorId: Int,
+        item: StoreItem
+    ): BitmapDescriptor? {
         if (context == null) return null
 
         val vectorDrawable = ContextCompat.getDrawable(context, vectorId)
@@ -190,13 +225,15 @@ class BikeStationRenderer(
             vectorDrawable.intrinsicHeight
         )
 
-        DrawableCompat.setTint(vectorDrawable, when(item.store.remainStat) {
-            Stat.plenty -> Color.GREEN
-            Stat.some -> Color.YELLOW
-            Stat.few -> Color.RED
-            Stat.empty -> Color.GRAY
-            else -> Color.GRAY
-        })
+        DrawableCompat.setTint(
+            vectorDrawable, when (item.store.remainStat) {
+                Stat.Plenty -> Color.GREEN
+                Stat.Some -> Color.YELLOW
+                Stat.Few -> Color.RED
+                Stat.Empty -> Color.GRAY
+                else -> Color.GRAY
+            }
+        )
 
         val bitmap = Bitmap.createBitmap(
             vectorDrawable.intrinsicWidth,
@@ -206,5 +243,21 @@ class BikeStationRenderer(
         val canvas = Canvas(bitmap)
         vectorDrawable.draw(canvas)
         return BitmapDescriptorFactory.fromBitmap(bitmap)
+    }
+}
+
+class NoticeDialogFragment() : DialogFragment() {
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.dialog_notice, container, false)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        Preference.setShowNotice(requireContext(), true)
     }
 }

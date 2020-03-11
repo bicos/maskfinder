@@ -10,7 +10,7 @@ class StoreItem(val store: Store) : ClusterItem {
     }
 
     override fun getTitle(): String {
-        return store.name
+        return "${store.name} (${store.remainStat?.msg ?: "알 수 없음"})"
     }
 
     override fun getPosition(): LatLng {
