@@ -12,10 +12,10 @@ android {
         }
     }
     compileSdkVersion 29
-    buildToolsVersion "29.0.0"
+    buildToolsVersion "29.0.2"
 
     defaultConfig {
-        applicationId "com.ravypark.maskfinder"
+        applicationId "com.bicos.maskfinder"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
@@ -61,8 +61,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.7.2'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.7.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.2'
-    implementation('com.squareup.okhttp3:okhttp:4.4.0')
-    implementation('com.squareup.okhttp3:logging-interceptor:4.4.0')
+    implementation 'com.squareup.okhttp3:okhttp:4.4.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.4.1'
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
